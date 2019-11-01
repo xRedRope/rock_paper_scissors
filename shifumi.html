@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <script>
+
+        // Genere un nombre entier aléatoire compris entre min et max inclus!
+        function entierAleatoire(min, max){
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Choix aléatoire de l'ordinateur de
+        function computerPlay(){
+            let computerChoice = entierAleatoire(1, 3);
+            if (computerChoice === 1) {
+                return "rock";
+            } else if (computerChoice === 2) {
+                return "paper";
+            } else return "scissors";
+        }
+
+        function playerPlay() {
+            while (true) {
+            playerSelection = prompt("Rock, Paper or Scissors ?");
+            playerSelection = playerSelection.toLowerCase();
+            if (playerSelection === "rock") return(playerSelection);
+            if (playerSelection === "paper") return(playerSelection);
+            if (playerSelection === "scissors") return(playerSelection);
+            }
+        }
+
+        // simule un tour de shifumi
+        function unTour(computerSelection, playerSelection) {
+            // l'ordinateur et le joueur choisissent leur element
+            //let computerSelection = computerSelection;
+            //let playerSelection = playerSelection;
+            let result = "";
+            
+            //computerSelection = computerSelection.toLowerCase();
+            //alert(playerSelection);
+            //alert(computerSelection);
+            if ((computerSelection === "rock") && (playerSelection === "paper")){
+                return (result = "You win ! " + playerSelection + " beats " + computerSelection + "!");
+            } else if ((computerSelection === "paper") && (playerSelection === "scissors")){
+                return (result = "You win ! " + playerSelection + " beats " + computerSelection + "!");
+            } else if ((computerSelection === "scissors") && (playerSelection === "rock")){
+                return (result = "You win ! " + playerSelection + " beats " + computerSelection + "!");
+            } else if ((computerSelection === "rock") && (playerSelection === "scissors")){
+                return (result = "You loose ! " + computerSelection + " beats " + playerSelection + "!");
+            } else if ((computerSelection === "paper") && (playerSelection === "rock")){
+                return (result = "You loose ! " + computerSelection + " beats " + playerSelection + "!");
+            } else if ((computerSelection === "scissors") && (playerSelection === "paper")){
+                return (result = "You loose ! " + computerSelection + " beats " + playerSelection + "!");
+            } else return (result = "It's a draw ! The both of you played " + computerSelection);
+
+            return result;
+        }
+
+        function game() {
+            let result = "";
+            let computerPoints = 0;
+            let playerPoints = 0;
+            for(let i = 0; i < 5; i++){
+                let computerSelection = computerPlay();
+                let playerSelection = playerPlay();
+                result = unTour(computerSelection, playerSelection);
+                //alert(result + "Score :<br>Player : " + playerPoints + "<br>Computer : " + computerPoints);
+                console.log(result);
+                if (result.indexOf("win") > -1) {
+                    playerPoints++;
+                } else if (result.indexOf("loose") > -1){
+                    computerPoints++;
+                } 
+                alert(result + "\nPlayer : " + playerPoints + "\nComputer : " + computerPoints);
+            }
+            if (computerPoints > playerPoints){
+                console.log("Sorry, you loose! Computer scored " + computerPoints + " points and you scored only " + playerPoints + " points!");
+            } else console.log("Hurrray ! you win! You scored " + playerPoints + " points and Computer scored only " + computerPoints + " points!")
+        }
+
+
+
+
+
+
+
+    </script>
+</html>
