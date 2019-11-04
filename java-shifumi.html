@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html>
+    <head>
+
+    </head>
+    <body>
+        <div class="game">
+            <button id="paper" type = "button">Paper</button>
+            <button id="rock" type="button">Rock</button>
+            <button id="scissors" type="button">Scissors</button>
+        </div>
+    </body>
+
+
     <script>
+
+        let computerPoints = 0;
+        let playerPoints = 0;
 
         // Genere un nombre entier aléatoire compris entre min et max inclus!
         function entierAleatoire(min, max){
@@ -28,58 +43,72 @@
         }
 
         // simule un tour de shifumi
-        function unTour(computerSelection, playerSelection) {
+        function playRound(computerSelection, playerSelection) {
             // l'ordinateur et le joueur choisissent leur element
            
             let result = "";
             
          
             if ((computerSelection === "rock") && (playerSelection === "paper")){
+                playerPoints++;
                 return (result = "You win ! " + playerSelection + " beats " + computerSelection + "!");
+
             } else if ((computerSelection === "paper") && (playerSelection === "scissors")){
+                playerPoints++;
                 return (result = "You win ! " + playerSelection + " beats " + computerSelection + "!");
             } else if ((computerSelection === "scissors") && (playerSelection === "rock")){
+                playerPoints++;
                 return (result = "You win ! " + playerSelection + " beats " + computerSelection + "!");
             } else if ((computerSelection === "rock") && (playerSelection === "scissors")){
+                computerPoints++;
                 return (result = "You loose ! " + computerSelection + " beats " + playerSelection + "!");
             } else if ((computerSelection === "paper") && (playerSelection === "rock")){
+                computerPoints++;
                 return (result = "You loose ! " + computerSelection + " beats " + playerSelection + "!");
             } else if ((computerSelection === "scissors") && (playerSelection === "paper")){
+                computerPoints++;
                 return (result = "You loose ! " + computerSelection + " beats " + playerSelection + "!");
             } else return (result = "It's a draw ! The both of you played " + computerSelection);
 
             return result;
         }
+      
+       
+        const buttons = document.querySelectorAll("button");
+        const game = document.querySelector(".game");
 
-        function game() {
-            let result = "";
-            let computerPoints = 0;
-            let playerPoints = 0;
-            for(let i = 0; i < 5; i++){
-                let computerSelection = computerPlay();
-                let playerSelection = playerPlay();
-                result = unTour(computerSelection, playerSelection);
-                console.log(result);
-                if (result.indexOf("win") > -1) {
-                    playerPoints++;
-                } else if (result.indexOf("loose") > -1){
-                    computerPoints++;
-                } 
-                alert(result + "\nPlayer : " + playerPoints + "\nComputer : " + computerPoints);
-            }
-            if (computerPoints > playerPoints){
-                console.log("Sorry, you loose! Computer scored " + computerPoints + " points and you scored only " + playerPoints + " points!");
-            } else if( computerPoints === playerPoints) {
-                console.log("Oups its a draw! Computer : "+ computerPoints + " Player : " + playerPoints+ " !");
-            } 
-            else console.log("Hurrray ! you win! You scored " + playerPoints + " points and Computer scored only " + computerPoints + " points!")
-        }
+    
+        buttons.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                const computerResult = document.createElement("p");
+                const playerResult = document.createElement("p");
+                console.log(button.id);
+                //console.log(playRound(computerPlay(), button.id));
+                playRound(computerPlay(), button.id);
+                console.log(computerPoints, playerPoints);
 
+                computerResult.textContent = "Computer : " + computerPoints;
+                playerResult.textContent = "Player : " + playerPoints;
+              
+                if ((computerPoints >= 5) || (playerPoints >= 5)){
+                    if (playerPoints > computerPoints){
+                        alert("The game is finished ! You win\n" + "Player : " + playerPoints + 
+                        "\nComputer : " + computerPoints);
+                    } else if (playerPoints < computerPoints) {
+                        alert("The game is finished ! You loose\n" + "Player : " + playerPoints + 
+                        "\nComputer : " + computerPoints);
+                    }
+                    computerPoints = 0;
+                    playerPoints = 0;
 
-
-
-
-
+                }
+                  
+                game.appendChild(computerResult);
+                game.appendChild(playerResult);
+            })
+        })
+    
+       
 
     </script>
 </html>
