@@ -9,6 +9,7 @@
             <button id="rock" type="button">Rock</button>
             <button id="scissors" type="button">Scissors</button>
         </div>
+        <div class="result"></div>
     </body>
 
 
@@ -75,7 +76,7 @@
       
        
         const buttons = document.querySelectorAll("button");
-        const game = document.querySelector(".game");
+        const result = document.querySelector(".result");
 
     
         buttons.forEach((button) => {
@@ -86,25 +87,28 @@
                 //console.log(playRound(computerPlay(), button.id));
                 playRound(computerPlay(), button.id);
                 console.log(computerPoints, playerPoints);
-
+              
                 computerResult.textContent = "Computer : " + computerPoints;
                 playerResult.textContent = "Player : " + playerPoints;
-              
+                result.innerHTML = '';
+                  
+                result.appendChild(computerResult);
+                result.appendChild(playerResult);
                 if ((computerPoints >= 5) || (playerPoints >= 5)){
                     if (playerPoints > computerPoints){
+                        
                         alert("The game is finished ! You win\n" + "Player : " + playerPoints + 
                         "\nComputer : " + computerPoints);
                     } else if (playerPoints < computerPoints) {
+                       
                         alert("The game is finished ! You loose\n" + "Player : " + playerPoints + 
                         "\nComputer : " + computerPoints);
                     }
+                    
                     computerPoints = 0;
                     playerPoints = 0;
 
                 }
-                  
-                game.appendChild(computerResult);
-                game.appendChild(playerResult);
             })
         })
     
